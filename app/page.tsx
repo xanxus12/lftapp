@@ -614,14 +614,14 @@ export default function LFTFitnessApp() {
                 <label className="block text-sm text-[#94969d]">
                   Phone Number (optional) - For international communications
                 </label>
-                <div className="flex flex-col sm:flex-row w-full">
+                <div className="flex flex-row w-full">
                   {/* Country Code Dropdown */}
                   <div className="relative country-dropdown w-fit">
                     <button
                       type="button"
                       onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
                       disabled={isSubmitting}
-                      className="bg-[#2a2a2a] text-white px-3 py-4 border-0 focus:outline-none focus:ring-2 focus:ring-[#32bbff] disabled:opacity-50 w-fit flex items-center justify-between cursor-pointer rounded-xl sm:rounded-l-xl sm:rounded-r-none"
+                      className="bg-[#2a2a2a] text-white px-3 py-4 border-0 focus:outline-none focus:ring-2 focus:ring-[#32bbff] disabled:opacity-50 w-fit flex items-center justify-between cursor-pointer rounded-l-xl rounded-r-none"
                     >
                       {(() => {
                         const selectedCountry = countryCodes.find(c => c.code === selectedCountryCode)
@@ -667,7 +667,7 @@ export default function LFTFitnessApp() {
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     disabled={isSubmitting}
-                    className="bg-[#2a2a2a] text-white placeholder-[#94969d] px-4 py-4 border-0 focus:outline-none focus:ring-2 focus:ring-[#32bbff] disabled:opacity-50 flex-1 rounded-xl sm:rounded-l-none sm:rounded-r-xl mt-2 sm:mt-0"
+                    className="bg-[#2a2a2a] text-white placeholder-[#94969d] px-4 py-4 border-0 focus:outline-none focus:ring-2 focus:ring-[#32bbff] disabled:opacity-50 flex-1 rounded-r-xl rounded-l-none"
                   />
                 </div>
                 <p className="text-xs text-[#94969d]">
