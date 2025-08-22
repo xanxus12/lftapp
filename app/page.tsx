@@ -614,14 +614,14 @@ export default function LFTFitnessApp() {
                 <label className="block text-sm text-[#94969d]">
                   Phone Number (optional) - For international communications
                 </label>
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row w-full">
                   {/* Country Code Dropdown */}
-                  <div className="relative country-dropdown">
+                  <div className="relative country-dropdown w-fit">
                     <button
                       type="button"
                       onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
                       disabled={isSubmitting}
-                      className="bg-[#2a2a2a] text-white px-3 py-4 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-[#32bbff] disabled:opacity-50 min-w-[140px] flex items-center justify-between cursor-pointer"
+                      className="bg-[#2a2a2a] text-white px-3 py-4 border-0 focus:outline-none focus:ring-2 focus:ring-[#32bbff] disabled:opacity-50 w-fit flex items-center justify-between cursor-pointer rounded-xl sm:rounded-l-xl sm:rounded-r-none"
                     >
                       {(() => {
                         const selectedCountry = countryCodes.find(c => c.code === selectedCountryCode)
@@ -635,10 +635,9 @@ export default function LFTFitnessApp() {
                       })()}
                       <ChevronDownIcon className="w-4 h-4 text-[#94969d] ml-2" />
                     </button>
-                    
                     {/* Custom Dropdown */}
                     {isCountryDropdownOpen && (
-                      <div className="absolute top-full left-0 mt-1 bg-[#2a2a2a] rounded-xl border border-[rgba(255,255,255,0.1)] max-h-60 overflow-y-auto z-50 min-w-[320px] shadow-lg">
+                      <div className="absolute top-full left-0 min-w-[220px] w-max mt-1 bg-[#2a2a2a] rounded-xl border border-[rgba(255,255,255,0.1)] max-h-60 overflow-y-auto z-50 shadow-lg">
                         {countryCodes.map(country => (
                           <button
                             key={country.iso}
@@ -661,7 +660,6 @@ export default function LFTFitnessApp() {
                       </div>
                     )}
                   </div>
-                  
                   {/* Phone Number Input */}
                   <input
                     type="tel"
@@ -669,13 +667,12 @@ export default function LFTFitnessApp() {
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     disabled={isSubmitting}
-                    className="flex-1 bg-[#2a2a2a] text-white placeholder-[#94969d] px-4 py-4 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-[#32bbff] disabled:opacity-50"
+                    className="bg-[#2a2a2a] text-white placeholder-[#94969d] px-4 py-4 border-0 focus:outline-none focus:ring-2 focus:ring-[#32bbff] disabled:opacity-50 flex-1 rounded-xl sm:rounded-l-none sm:rounded-r-xl mt-2 sm:mt-0"
                   />
                 </div>
                 <p className="text-xs text-[#94969d]">
                   Providing a phone number is optional and helps us contact you internationally.
                 </p>
-                
                 {/* GDPR-Compliant Phone Consent */}
                 {phoneNumber && (
                   <div className="flex items-start gap-3 p-3 bg-[#1a1a1a] rounded-lg border border-[rgba(255,255,255,0.1)]">
@@ -698,35 +695,35 @@ export default function LFTFitnessApp() {
                   </div>
                 )}
               </div>
-              <div className="flex items-center gap-3 p-2">
-                <input
-                  type="checkbox"
-                  id="newsletter"
-                  checked={newsletterSubscription}
-                  onChange={(e) => setNewsletterSubscription(e.target.checked)}
-                  disabled={isSubmitting}
-                  className="w-5 h-5 bg-[#2a2a2a] border-2 border-[#94969d] rounded focus:ring-2 focus:ring-[#32bbff] text-[#29cc5e] disabled:opacity-50"
-                />
-                <label htmlFor="newsletter" className="text-[#94969d] text-sm cursor-pointer">
-                  I want to receive weekly newsletters with fitness tips and app updates
-                </label>
-              </div>
-              <Button
-                type="submit"
+            <div className="flex items-center gap-3 p-2">
+              <input
+                type="checkbox"
+                id="newsletter"
+                checked={newsletterSubscription}
+                onChange={(e) => setNewsletterSubscription(e.target.checked)}
                 disabled={isSubmitting}
-                className="w-full bg-[#29cc5e] text-black hover:bg-[#22b84c] py-4 rounded-xl cursor-pointer bg-[rgba(85,210,78,1)] font-black text-xl disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? "Submitting..." : "Submit"}
-              </Button>
+                className="w-5 h-5 bg-[#2a2a2a] border-2 border-[#94969d] rounded focus:ring-2 focus:ring-[#32bbff] text-[#29cc5e] disabled:opacity-50"
+              />
+              <label htmlFor="newsletter" className="text-[#94969d] text-sm cursor-pointer">
+                I want to receive weekly newsletters with fitness tips and app updates
+              </label>
+            </div>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-[#29cc5e] text-black hover:bg-[#22b84c] py-4 rounded-xl cursor-pointer bg-[rgba(85,210,78,1)] font-black text-xl disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </Button>
 
-              {submitMessage && <p className="text-[#29cc5e] text-sm mt-4">{submitMessage}</p>}
-              {submitError && <p className="text-red-500 text-sm mt-4">{submitError}</p>}
-            </form>
-          </AnimatedCard>
+            {submitMessage && <p className="text-[#29cc5e] text-sm mt-4">{submitMessage}</p>}
+            {submitError && <p className="text-red-500 text-sm mt-4">{submitError}</p>}
+          </form>
+        </AnimatedCard>
 
-          <p className="text-[#94969d] text-sm">By signing up, you agree to our Terms of Service and Privacy Policy.</p>
-        </div>
-      </section>
+        <p className="text-[#94969d] text-sm">By signing up, you agree to our Terms of Service and Privacy Policy.</p>
+      </div>
+    </section>
 
       {/* Footer */}
       <footer className="px-4 border-[#1a1a1a] py-6 border-t overflow-x-clip">
