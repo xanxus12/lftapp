@@ -18,6 +18,7 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import { getAllCountryCodes, getUserLocation, getCountryCodeByISO, type CountryCode } from "@/lib/country-codes"
 
 // Animated Card Component
 function AnimatedCard({ 
@@ -55,11 +56,67 @@ export default function LFTFitnessApp() {
   const [email, setEmail] = useState("")
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
+  const [selectedCountryCode, setSelectedCountryCode] = useState("+1")
   const [phoneNumber, setPhoneNumber] = useState("")
+  const [phoneConsent, setPhoneConsent] = useState(false)
+  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false)
   const [newsletterSubscription, setNewsletterSubscription] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState("")
   const [submitError, setSubmitError] = useState("")
+
+  // Dynamic country codes loaded from libphonenumber-js
+  const [countryCodes, setCountryCodes] = useState<CountryCode[]>([])
+
+  // Load country codes and detect user location on component mount
+  useEffect(() => {
+    // Load all country codes
+    setCountryCodes(getAllCountryCodes())
+    
+    // Detect user location and set appropriate country code
+    const detectLocation = async () => {
+      try {
+        const userCountry = await getUserLocation()
+        if (userCountry) {
+          const countryCode = getCountryCodeByISO(userCountry)
+          if (countryCode) {
+            setSelectedCountryCode(countryCode.code)
+          }
+        }
+      } catch (error) {
+        console.log('Location detection failed:', error)
+        // Fallback to Spain as default
+        setSelectedCountryCode("+34")
+      }
+    }
+    
+    detectLocation()
+  }, [])
+
+  // Close dropdown when clicking outside or pressing ESC
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isCountryDropdownOpen) {
+        const target = event.target as Element
+        if (!target.closest('.country-dropdown')) {
+          setIsCountryDropdownOpen(false)
+        }
+      }
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isCountryDropdownOpen) {
+        setIsCountryDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isCountryDropdownOpen])
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index)
@@ -88,7 +145,7 @@ export default function LFTFitnessApp() {
           email,
           firstName,
           lastName,
-          phoneNumber,
+          phoneNumber: phoneConsent ? selectedCountryCode + phoneNumber : "",
           newsletterSubscription,
         }),
       })
@@ -103,7 +160,9 @@ export default function LFTFitnessApp() {
       setEmail("")
       setFirstName("")
       setLastName("")
+      setSelectedCountryCode("+34")
       setPhoneNumber("")
+      setPhoneConsent(false)
       setNewsletterSubscription(false)
     } catch (error) {
       console.error("Submission error:", error)
@@ -550,14 +609,95 @@ export default function LFTFitnessApp() {
                 disabled={isSubmitting}
                 className="w-full bg-[#2a2a2a] text-white placeholder-[#94969d] px-4 py-4 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-[#32bbff] disabled:opacity-50"
               />
-              <input
-                type="tel"
-                placeholder="Phone Number (optional)"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                disabled={isSubmitting}
-                className="w-full bg-[#2a2a2a] text-white placeholder-[#94969d] px-4 py-4 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-[#32bbff] disabled:opacity-50"
-              />
+              {/* Phone Number with Country Code Selector */}
+              <div className="space-y-3">
+                <label className="block text-sm text-[#94969d]">
+                  Phone Number (optional) - For international communications
+                </label>
+                <div className="flex gap-2">
+                  {/* Country Code Dropdown */}
+                  <div className="relative country-dropdown">
+                    <button
+                      type="button"
+                      onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
+                      disabled={isSubmitting}
+                      className="bg-[#2a2a2a] text-white px-3 py-4 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-[#32bbff] disabled:opacity-50 min-w-[140px] flex items-center justify-between cursor-pointer"
+                    >
+                      {(() => {
+                        const selectedCountry = countryCodes.find(c => c.code === selectedCountryCode)
+                        return selectedCountry ? (
+                          <span className="text-white font-medium">
+                            {selectedCountry.flag} {selectedCountry.code}
+                          </span>
+                        ) : (
+                          <span className="text-[#94969d]">Select</span>
+                        )
+                      })()}
+                      <ChevronDownIcon className="w-4 h-4 text-[#94969d] ml-2" />
+                    </button>
+                    
+                    {/* Custom Dropdown */}
+                    {isCountryDropdownOpen && (
+                      <div className="absolute top-full left-0 mt-1 bg-[#2a2a2a] rounded-xl border border-[rgba(255,255,255,0.1)] max-h-60 overflow-y-auto z-50 min-w-[320px] shadow-lg">
+                        {countryCodes.map(country => (
+                          <button
+                            key={country.iso}
+                            type="button"
+                            onClick={() => {
+                              setSelectedCountryCode(country.code)
+                              setIsCountryDropdownOpen(false)
+                            }}
+                            className="w-full text-left px-4 py-3 hover:bg-[#1a1a1a] transition-colors cursor-pointer flex items-center gap-3 border-b border-[rgba(255,255,255,0.05)] last:border-b-0 group"
+                          >
+                            <span className="text-xl flex-shrink-0 group-hover:scale-110 transition-transform">{country.flag}</span>
+                            <div className="flex-1 min-w-0 overflow-hidden">
+                              <div className="flex items-center gap-2">
+                                <span className="text-white font-medium text-sm">{country.code}</span>
+                                <span className="text-[#94969d] text-sm truncate">{country.country}</span>
+                              </div>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Phone Number Input */}
+                  <input
+                    type="tel"
+                    placeholder="Phone Number"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    disabled={isSubmitting}
+                    className="flex-1 bg-[#2a2a2a] text-white placeholder-[#94969d] px-4 py-4 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-[#32bbff] disabled:opacity-50"
+                  />
+                </div>
+                <p className="text-xs text-[#94969d]">
+                  Providing a phone number is optional and helps us contact you internationally.
+                </p>
+                
+                {/* GDPR-Compliant Phone Consent */}
+                {phoneNumber && (
+                  <div className="flex items-start gap-3 p-3 bg-[#1a1a1a] rounded-lg border border-[rgba(255,255,255,0.1)]">
+                    <input
+                      type="checkbox"
+                      id="phone-consent"
+                      checked={phoneConsent}
+                      onChange={(e) => setPhoneConsent(e.target.checked)}
+                      disabled={isSubmitting}
+                      className="mt-1 w-4 h-4 bg-[#2a2a2a] border-2 border-[#94969d] rounded focus:ring-2 focus:ring-[#32bbff] text-[#29cc5e] disabled:opacity-50"
+                    />
+                    <label htmlFor="phone-consent" className="text-sm text-[#94969d] leading-relaxed">
+                      I consent to providing my phone number for international communications. 
+                      This data will be processed in accordance with our{' '}
+                      <a href="/privacy" className="text-[#32bbff] hover:underline">
+                        Privacy Policy
+                      </a>
+                      . You can withdraw consent at any time.
+                    </label>
+                  </div>
+                )}
+              </div>
               <div className="flex items-center gap-3 p-2">
                 <input
                   type="checkbox"
