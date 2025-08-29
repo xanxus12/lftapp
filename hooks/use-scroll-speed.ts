@@ -14,18 +14,13 @@ export function useScrollSpeed(factor = 1.0) {
   const [y, setY] = useState(0)
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
-
     let frame = 0
-    // Align transform origin at the element's natural page position
-    let startY = el.getBoundingClientRect().top + window.scrollY
 
     const update = () => {
       frame = 0
-      const delta = window.scrollY - startY
-      // Move extra distance relative to document scroll
-      const translate = - (factor - 1) * delta
+      // Translate relative to document scroll so initial position is preserved
+      // factor > 1 moves out faster (translate up), < 1 lingers (translate down)
+      const translate = (1 - factor) * window.scrollY
       setY(translate)
     }
 
@@ -34,7 +29,6 @@ export function useScrollSpeed(factor = 1.0) {
     }
 
     const onResize = () => {
-      startY = el.getBoundingClientRect().top + window.scrollY
       onScroll()
     }
 
@@ -55,4 +49,3 @@ export function useScrollSpeed(factor = 1.0) {
 
   return { ref, style }
 }
-
