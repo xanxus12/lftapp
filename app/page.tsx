@@ -284,7 +284,9 @@ export default function LFTFitnessApp() {
      {/* Hero Section */}
 <section className="px-4 py-20 pt-32">
   <div className="max-w-7xl text-center mx-auto my-20 hero-animate">
-    <h1 className="text-6xl font-bold mb-6 md:text-6xl">Train. Log. Win.</h1>
+    <h1 className="text-6xl font-bold mb-6 md:text-6xl">
+      Train<span className="text-[#29cc5e]">.</span> Log<span className="text-[#29cc5e]">.</span> Win<span className="text-[#29cc5e]">.</span>
+    </h1>
     <p className="text-[#94969d] mb-4 max-w-2xl mx-auto text-xl">
       Take control of your progress with the LFT fitness app. The all-in one solution for fitness tracking.
     </p>
