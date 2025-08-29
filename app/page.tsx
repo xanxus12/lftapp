@@ -405,59 +405,59 @@ export default function LFTFitnessApp() {
 
       {/* Data Control Section */}
       <section className="px-4 py-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="font-bold mb-16 text-5xl">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="font-bold mb-16 text-6xl tracking-tight">
             Giving you all the data you need to control and measure real progress
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             <AnimatedCard 
-              className="bg-[#1a1a1a] backdrop-blur-sm text-white p-8 rounded-2xl shadow-[0_0_5px_rgba(255,255,255,0.1)] py-3 px-3 border border-[rgba(255,255,255,0.05)]"
+              className="bg-[#101010] text-white p-8 rounded-[18px] shadow-[0_8px_24px_rgba(0,0,0,0.35)] border border-[rgba(255,255,255,0.06)]"
               delay={0}
             >
-              <div className="w-12 h-12 bg-[#0D0D0D] rounded-xl flex items-center justify-center mb-0">
+              <div className="w-12 h-12 bg-[#0D0D0D] rounded-xl border border-[rgba(255,255,255,0.08)] flex items-center justify-center mb-6">
                 <User2Icon className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-left mb-0">Customize your Profile</h3>
+              <h3 className="text-xl font-semibold text-left mb-2">Customize your Profile</h3>
               <p className="text-[#94969d] leading-relaxed text-left">
                 Input your data and choose your preferred weight unit to track your lifts and see your progress.
               </p>
             </AnimatedCard>
 
             <AnimatedCard 
-              className="bg-[#1a1a1a] backdrop-blur-sm text-white p-8 rounded-2xl shadow-[0_0_5px_rgba(255,255,255,0.1)] py-3 px-3 border border-[rgba(255,255,255,0.05)]"
+              className="bg-[#101010] text-white p-8 rounded-[18px] shadow-[0_8px_24px_rgba(0,0,0,0.35)] border border-[rgba(255,255,255,0.06)]"
               delay={1}
             >
-              <div className="w-12 h-12 bg-[#0D0D0D] rounded-xl flex items-center justify-center mb-0">
+              <div className="w-12 h-12 bg-[#0D0D0D] rounded-xl border border-[rgba(255,255,255,0.08)] flex items-center justify-center mb-6">
                 <StarsIcon className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-left mb-0">Personalized Experience</h3>
+              <h3 className="text-xl font-semibold text-left mb-2">Personalized Experience</h3>
               <p className="text-[#94969d] leading-relaxed text-left">
                 Customize your workouts and splits to your liking and track everything that matters to you.
               </p>
             </AnimatedCard>
 
             <AnimatedCard 
-              className="bg-[#1a1a1a] backdrop-blur-sm text-white p-8 rounded-2xl shadow-[0_0_5px_rgba(255,255,255,0.1)] py-3 px-3 border border-[rgba(255,255,255,0.05)]"
+              className="bg-[#101010] text-white p-8 rounded-[18px] shadow-[0_8px_24px_rgba(0,0,0,0.35)] border border-[rgba(255,255,255,0.06)]"
               delay={2}
             >
-              <div className="w-12 h-12 bg-[#0D0D0D] rounded-xl flex items-center justify-center mb-0">
+              <div className="w-12 h-12 bg-[#0D0D0D] rounded-xl border border-[rgba(255,255,255,0.08)] flex items-center justify-center mb-6">
                 <Globe className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-left mb-0">Global Reach</h3>
+              <h3 className="text-xl font-semibold text-left mb-2">Global Reach</h3>
               <p className="text-[#94969d] leading-relaxed text-left">
                 Lifters across the world will contribute to building the best fitness tracking app out there.
               </p>
             </AnimatedCard>
 
             <AnimatedCard 
-              className="bg-[#1a1a1a] backdrop-blur-sm text-white p-8 rounded-2xl shadow-[0_0_5px_rgba(255,255,255,0.1)] py-3 px-3 border border-[rgba(255,255,255,0.05)]"
+              className="bg-[#101010] text-white p-8 rounded-[18px] shadow-[0_8px_24px_rgba(0,0,0,0.35)] border border-[rgba(255,255,255,0.06)]"
               delay={3}
             >
-              <div className="w-12 h-12 bg-[#0D0D0D] rounded-xl flex items-center justify-center mb-0">
+              <div className="w-12 h-12 bg-[#0D0D0D] rounded-xl border border-[rgba(255,255,255,0.08)] flex items-center justify-center mb-6">
                 <SmileIcon className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-left mb-">Give us Feedback</h3>
+              <h3 className="text-xl font-semibold text-left mb-2">Give us Feedback</h3>
               <p className="text-[#94969d] leading-relaxed text-left">
                 We are building this app every day so feel free to tell us where to improve and what features to add
                 next.
