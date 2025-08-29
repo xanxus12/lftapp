@@ -136,6 +136,8 @@
   html {
     overscroll-behavior: none;
     overflow-x: hidden;
+    /* Smooth anchor navigation */
+    scroll-behavior: smooth;
   }
 
   /* Hide any "Built with v0" badge */
