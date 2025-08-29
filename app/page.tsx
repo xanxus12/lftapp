@@ -53,9 +53,9 @@ function AnimatedCard({
 
 export default function LFTFitnessApp() {
   // Parallax for hero mockups (left fastest, right medium, center slowest)
-  const leftParallax = useParallax({ speed: 1.0, clamp: 220, xAmplitude: 0, rotateMax: 0, scaleMax: 0 })
-  const centerParallax = useParallax({ speed: 0.25, clamp: 180, xAmplitude: 0, rotateMax: 0, scaleMax: 0 })
-  const rightParallax = useParallax({ speed: 0.6, clamp: 200, xAmplitude: 0, rotateMax: 0, scaleMax: 0 })
+  const leftParallax = useParallax({ speed: 1.5, clamp: 220, xAmplitude: 0, rotateMax: 0, scaleMax: 0 })
+  const centerParallax = useParallax({ speed: 1.15, clamp: 180, xAmplitude: 0, rotateMax: 0, scaleMax: 0 })
+  const rightParallax = useParallax({ speed: 1.3, clamp: 200, xAmplitude: 0, rotateMax: 0, scaleMax: 0 })
   const [isYearly, setIsYearly] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [email, setEmail] = useState("")
