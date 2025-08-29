@@ -18,7 +18,7 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
-import { useParallax } from "@/hooks/use-parallax"
+import { useScrollSpeed } from "@/hooks/use-scroll-speed"
 import { getAllCountryCodes, getUserLocation, getCountryCodeByISO, type CountryCode } from "@/lib/country-codes"
 
 // Animated Card Component
@@ -52,10 +52,10 @@ function AnimatedCard({
 }
 
 export default function LFTFitnessApp() {
-  // Parallax for hero mockups (left fastest, right medium, center slowest)
-  const leftParallax = useParallax({ speed: 1.5, clamp: 220, xAmplitude: 0, rotateMax: 0, scaleMax: 0 })
-  const centerParallax = useParallax({ speed: 1.15, clamp: 180, xAmplitude: 0, rotateMax: 0, scaleMax: 0 })
-  const rightParallax = useParallax({ speed: 1.3, clamp: 200, xAmplitude: 0, rotateMax: 0, scaleMax: 0 })
+  // Scroll-speed transform (vertical-only): left 150%, right 130%, center 115%
+  const leftSpeed = useScrollSpeed(1.5)
+  const centerSpeed = useScrollSpeed(1.15)
+  const rightSpeed = useScrollSpeed(1.3)
   const [isYearly, setIsYearly] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [email, setEmail] = useState("")
@@ -236,8 +236,8 @@ export default function LFTFitnessApp() {
     <div className="relative flex justify-center items-start will-change-transform">
       {/* Left Phone — hidden on mobile, not downloaded */}
       <div
-        ref={leftParallax.ref}
-        style={leftParallax.style}
+        ref={leftSpeed.ref}
+        style={leftSpeed.style}
         className="hidden md:block absolute left-1/7 -translate-x-1/2 z-10 mr-0 text-center px-0 ml-0 mt-0 will-change-transform"
         aria-hidden="true"
       >
@@ -255,8 +255,8 @@ export default function LFTFitnessApp() {
 
       {/* Center Phone — visible on all screens */}
       <div
-        ref={centerParallax.ref}
-        style={centerParallax.style}
+        ref={centerSpeed.ref}
+        style={centerSpeed.style}
         className="z-20 mr-0 ml-0 px-0 opacity-100 mt-24 will-change-transform"
       >
         <Image
@@ -273,8 +273,8 @@ export default function LFTFitnessApp() {
 
       {/* Right Phone — hidden on mobile, not downloaded */}
       <div
-        ref={rightParallax.ref}
-        style={rightParallax.style}
+        ref={rightSpeed.ref}
+        style={rightSpeed.style}
         className="hidden md:block absolute right-1/7 translate-x-1/2 z-10 ml-0 mr-0 mt-[-32px] will-change-transform"
         aria-hidden="true"
       >
