@@ -177,14 +177,78 @@ export default function LFTFitnessApp() {
     }
   }
 
-  const faqs = [
-    "What platform is LFT available on?",
-    "How do I log a new workout?",
-    "Can I add my own custom exercises?",
-    "How does progress tracking work?",
-    "How do I cancel/refund features work?",
-    "Can I export or back up my data?",
-    "Is my data secure and private?",
+  const faqs: { q: string; a: React.ReactNode }[] = [
+    {
+      q: "What platform is LFT available on?",
+      a: (
+        <>
+          LFT will launch on iOS and Android first. A web dashboard is on our roadmap. If you want early access on a
+          specific platform, join the waitlist and we’ll let you know when it’s ready.
+        </>
+      ),
+    },
+    {
+      q: "How do I log a new workout?",
+      a: (
+        <>
+          Open the app, tap <strong>New workout</strong>, choose a template or start from scratch, then add exercises.
+          You can log sets, reps, weight, RPE, and notes. Save when you’re done — your session is tracked automatically.
+        </>
+      ),
+    },
+    {
+      q: "Can I add my own custom exercises?",
+      a: (
+        <>
+          Yes. Create a custom exercise with a name, muscle group, and optional equipment. Custom exercises behave just
+          like built‑ins, so you can use them in templates and track PRs over time.
+        </>
+      ),
+    },
+    {
+      q: "How does progress tracking work?",
+      a: (
+        <>
+          We track volume, estimated 1RM, best sets, and weekly trends per exercise. You’ll see charts and personal
+          records so you can spot plateaus and progress. More analytics (block reviews, streaks) are coming after launch.
+        </>
+      ),
+    },
+    {
+      q: "How do I cancel/refund features work?",
+      a: (
+        <>
+          You can manage or cancel your subscription directly through the App Store or Google Play at any time. Refunds
+          are handled by the respective store&apos;s policies. If you run into issues, email us at
+          {" "}
+          <a href="mailto:helplftapp@gmail.com" className="text-[#32bbff] hover:underline">helplftapp@gmail.com</a>.
+        </>
+      ),
+    },
+    {
+      q: "Can I export or back up my data?",
+      a: (
+        <>
+          Yes. We plan to offer CSV/JSON exports from your account settings so you can back up or move your data. Until
+          that ships, you can request an export via
+          {" "}
+          <a href="mailto:helplftapp@gmail.com" className="text-[#32bbff] hover:underline">support</a>.
+        </>
+      ),
+    },
+    {
+      q: "Is my data secure and private?",
+      a: (
+        <>
+          We take privacy seriously — data is transmitted over HTTPS and stored with industry‑standard encryption. We
+          never sell your data. You control your account and can request deletion anytime. Read our
+          {" "}
+          <a href="/privacy" className="text-[#32bbff] hover:underline">Privacy Policy</a>
+          {" "}
+          for details.
+        </>
+      ),
+    },
   ]
 
   return (
@@ -549,7 +613,7 @@ export default function LFTFitnessApp() {
           <h2 className="font-bold text-center mb-16 text-6xl">Frequently Asked Questions</h2>
 
           <div className="space-y-4">
-            {faqs.map((faq, index) => (
+            {faqs.map((item, index) => (
               <AnimatedCard 
                 key={index} 
                 className="bg-[#1a1a1a] rounded-xl overflow-hidden"
@@ -559,7 +623,7 @@ export default function LFTFitnessApp() {
                   className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-[#1a1a1a] transition-colors cursor-pointer"
                   onClick={() => toggleFaq(index)}
                 >
-                  <span className="font-medium text-lg">{faq}</span>
+                  <span className="font-medium text-lg">{item.q}</span>
                   {openFaq === index ? (
                     <ChevronUpIcon className="w-5 h-5 text-[#94969d]" />
                   ) : (
@@ -568,10 +632,7 @@ export default function LFTFitnessApp() {
                 </button>
                 {openFaq === index && (
                   <div className="px-6 pb-6">
-                    <p className="text-[#94969d] leading-relaxed">
-                      This is where the answer to "{faq}" would be displayed. Each FAQ would have its own detailed
-                      response explaining the feature or process.
-                    </p>
+                    <p className="text-[#94969d] leading-relaxed">{item.a}</p>
                   </div>
                 )}
               </AnimatedCard>
