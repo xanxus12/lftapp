@@ -52,10 +52,10 @@ function AnimatedCard({
 }
 
 export default function LFTFitnessApp() {
-  // Parallax for hero mockups (left/center/right)
-  const leftParallax = useParallax(0.35, 90)
-  const centerParallax = useParallax(0.18, 60)
-  const rightParallax = useParallax(0.5, 110)
+  // Parallax for hero mockups (left/center/right) — stronger + depth
+  const leftParallax = useParallax({ speed: 0.7, clamp: 140, xAmplitude: -40, rotateMax: -6, scaleMax: 0.02 })
+  const centerParallax = useParallax({ speed: 0.35, clamp: 100, xAmplitude: 0, rotateMax: 0, scaleMax: 0.01 })
+  const rightParallax = useParallax({ speed: 0.9, clamp: 160, xAmplitude: 40, rotateMax: 6, scaleMax: 0.02 })
   const [isYearly, setIsYearly] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [email, setEmail] = useState("")
@@ -238,7 +238,7 @@ export default function LFTFitnessApp() {
       <div
         ref={leftParallax.ref}
         style={leftParallax.style}
-        className="hidden md:block absolute left-1/7 -translate-x-1/2 z-10 mr-0 text-center px-0 ml-0 mt-0"
+        className="hidden md:block absolute left-1/7 -translate-x-1/2 z-10 mr-0 text-center px-0 ml-0 mt-0 will-change-transform"
         aria-hidden="true"
       >
         <Image
@@ -257,7 +257,7 @@ export default function LFTFitnessApp() {
       <div
         ref={centerParallax.ref}
         style={centerParallax.style}
-        className="z-20 mr-0 ml-0 px-0 opacity-100 mt-24"
+        className="z-20 mr-0 ml-0 px-0 opacity-100 mt-24 will-change-transform"
       >
         <Image
           src="/images/mockup_hero_middle.png"
@@ -275,7 +275,7 @@ export default function LFTFitnessApp() {
       <div
         ref={rightParallax.ref}
         style={rightParallax.style}
-        className="hidden md:block absolute right-1/7 translate-x-1/2 z-10 ml-0 mr-0 mt-[-32px]"
+        className="hidden md:block absolute right-1/7 translate-x-1/2 z-10 ml-0 mr-0 mt-[-32px] will-change-transform"
         aria-hidden="true"
       >
         <Image

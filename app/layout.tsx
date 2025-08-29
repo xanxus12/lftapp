@@ -3,7 +3,6 @@ import type { Metadata } from "next"
 import { Plus_Jakarta_Sans } from "next/font/google"
 import "./globals.css"
 import Script from "next/script" // ⬅️ add
-import ScrollProgress from "@/components/scroll-progress"
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -22,7 +21,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={plusJakartaSans.variable}>
       <body className={plusJakartaSans.className}>
-        <ScrollProgress />
         {children}
 
         {/* Kill the “Built with v0” badge */}

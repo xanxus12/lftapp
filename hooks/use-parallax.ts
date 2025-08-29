@@ -2,11 +2,26 @@
 
 import { useEffect, useMemo, useRef, useState } from "react"
 
+export interface ParallaxOptions {
+  speed?: number
+  clamp?: number
+  xAmplitude?: number // px of horizontal drift at max
+  rotateMax?: number // deg at max
+  scaleMax?: number // extra scale at max (e.g., 0.02 = +2%)
+}
+
 /**
- * Simple parallax hook that translates an element vertically based on scroll.
- * Positive speed moves with scroll but slower; higher = more movement.
+ * Parallax hook: adds depth with translateY + optional translateX/rotate/scale.
  */
-export function useParallax(speed = 0.2, clamp = 80) {
+export function useParallax(opts: ParallaxOptions = {}) {
+  const {
+    speed = 0.3,
+    clamp = 100,
+    xAmplitude = 0,
+    rotateMax = 0,
+    scaleMax = 0,
+  } = opts
+
   const ref = useRef<HTMLDivElement>(null)
   const [y, setY] = useState(0)
 
@@ -44,11 +59,16 @@ export function useParallax(speed = 0.2, clamp = 80) {
     }
   }, [speed, clamp])
 
-  const style = useMemo(() => ({
-    transform: `translate3d(0, ${y.toFixed(1)}px, 0)`,
-    willChange: "transform",
-  } as React.CSSProperties), [y])
+  const style = useMemo(() => {
+    const t = clamp === 0 ? 0 : y / clamp // -1..1
+    const x = xAmplitude * t
+    const r = rotateMax * t
+    const s = 1 + Math.abs(t) * scaleMax
+    return {
+      transform: `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) rotate(${r.toFixed(2)}deg) scale(${s.toFixed(3)})`,
+      willChange: "transform",
+    } as React.CSSProperties
+  }, [y, clamp, xAmplitude, rotateMax, scaleMax])
 
   return { ref, style }
 }
-
