@@ -575,30 +575,31 @@ export default function LFTFitnessApp() {
                   <h4 className="font-semibold text-xl">WHAT'S INCLUDED?</h4>
                   <span className="text-[#29cc5e] font-medium text-xl">14 Day Free Trial</span>
                 </div>
+                {/* Mirror Basic plan features, all active for Premium */}
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#29cc5e]" />
-                    <span className="text-sm">Everything in Basic Plan</span>
+                    <span className="text-base">Create and customize profile</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#29cc5e]" />
-                    <span className="text-sm">Advanced progress analytics</span>
+                    <span className="text-sm">Choose from the exercise library</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#29cc5e]" />
-                    <span className="text-sm">Unlimited workout templates</span>
+                    <span className="text-sm">Access to basic features</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#29cc5e]" />
-                    <span className="text-sm">Export data and backup</span>
+                    <span className="text-sm">Receive notifications and updates</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#29cc5e]" />
-                    <span className="text-sm">Priority customer support</span>
+                    <span className="text-sm">Create your own workout templates</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#29cc5e]" />
-                    <span className="text-sm">Early access to new features</span>
+                    <span className="text-sm">Share workouts with friends</span>
                   </div>
                 </div>
               </div>
