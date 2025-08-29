@@ -18,6 +18,7 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import { useParallax } from "@/hooks/use-parallax"
 import { getAllCountryCodes, getUserLocation, getCountryCodeByISO, type CountryCode } from "@/lib/country-codes"
 
 // Animated Card Component
@@ -51,6 +52,10 @@ function AnimatedCard({
 }
 
 export default function LFTFitnessApp() {
+  // Parallax for hero mockups (left/center/right)
+  const leftParallax = useParallax(0.35, 90)
+  const centerParallax = useParallax(0.18, 60)
+  const rightParallax = useParallax(0.5, 110)
   const [isYearly, setIsYearly] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [email, setEmail] = useState("")
@@ -228,10 +233,12 @@ export default function LFTFitnessApp() {
     </Button>
 
     {/* Phone Mockups */}
-    <div className="relative flex justify-center items-start">
+    <div className="relative flex justify-center items-start will-change-transform">
       {/* Left Phone — hidden on mobile, not downloaded */}
       <div
-        className="hidden md:block absolute left-1/7 transform -translate-x-1/2 z-10 mr-0 text-center px-0 ml-0 mt-0"
+        ref={leftParallax.ref}
+        style={leftParallax.style}
+        className="hidden md:block absolute left-1/7 -translate-x-1/2 z-10 mr-0 text-center px-0 ml-0 mt-0"
         aria-hidden="true"
       >
         <Image
@@ -247,7 +254,11 @@ export default function LFTFitnessApp() {
       </div>
 
       {/* Center Phone — visible on all screens */}
-      <div className="z-20 mr-0 ml-0 px-0 opacity-100 mt-24">
+      <div
+        ref={centerParallax.ref}
+        style={centerParallax.style}
+        className="z-20 mr-0 ml-0 px-0 opacity-100 mt-24"
+      >
         <Image
           src="/images/mockup_hero_middle.png"
           alt="Dashboard Screen"
@@ -262,7 +273,9 @@ export default function LFTFitnessApp() {
 
       {/* Right Phone — hidden on mobile, not downloaded */}
       <div
-        className="hidden md:block absolute right-1/7 transform translate-x-1/2 z-10 ml-0 mr-0 mt-[-32px]"
+        ref={rightParallax.ref}
+        style={rightParallax.style}
+        className="hidden md:block absolute right-1/7 translate-x-1/2 z-10 ml-0 mr-0 mt-[-32px]"
         aria-hidden="true"
       >
         <Image
