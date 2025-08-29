@@ -254,7 +254,7 @@ export default function LFTFitnessApp() {
   return (
     <div className="min-h-screen bg-[#000000] text-white">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-4 backdrop-blur-md bg-black/80 border-b border-white/10 py-7">
+      <header className="fixed top-0 left-0 right-0 z-50 px-4 backdrop-blur-lg bg-black/40 border-b border-white/5 py-7">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center py-0">
             <Image src="/images/lft-logo.png" alt="LFT Logo" width={80} height={32} className="h-12 w-auto" />
