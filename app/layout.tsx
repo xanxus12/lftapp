@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   description: "Train. Log. Win.",
   generator: 'v0.app',
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
     apple: '/apple-touch-icon.png',
   }
 }
